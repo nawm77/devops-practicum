@@ -25,10 +25,6 @@ jobs:
         run: |
           cd catgpt
           go build -o app
-
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Yandex Cloud CR "Login" Action for GitHub Actions
@@ -41,6 +37,7 @@ jobs:
           CR_REPOSITORY: catgpt
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
           echo $(pwd)
           echo $(ls)
           cd catgpt
