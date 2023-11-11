@@ -44,5 +44,5 @@ jobs:
           echo $(pwd)
           echo $(ls)
           cd catgpt
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker build -t $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+          docker push $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
