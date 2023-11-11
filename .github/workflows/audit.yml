@@ -38,8 +38,11 @@ jobs:
           CR_REGISTRY: cr.yandex/crpfselct7kq21c59cab
           CR_REPOSITORY: catgpt
           IMAGE_TAG: ${{ github.sha }}
-        run: |
-          echo $(pwd)
-          cd ../catgpt
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+        with:
+          script: |
+            echo $(pwd)
+            echo $(ls)
+            cd ../catgpt
+            docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+            docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+        run: echo $(pwd)
