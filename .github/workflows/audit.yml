@@ -27,16 +27,18 @@ jobs:
           go build -o app
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Yandex Cloud CR "Login" Action for GitHub Actions
-        uses: yc-actions/yc-cr-login@v0.1-alpha
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+#      - name: Yandex Cloud CR "Login" Action for GitHub Actions
+#        uses: yc-actions/yc-cr-login@v0.1-alpha
+#        with:
+#          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
           CR_REGISTRY: cr.yandex/crpfselct7kq21c59cab
           CR_REPOSITORY: catgpt
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          sudo docker login --username oauth --password $YANDEX_KEY cr.yandex
           echo $(pwd)
           echo $(ls)
           cd catgpt
