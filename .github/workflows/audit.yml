@@ -38,7 +38,7 @@ jobs:
           CR_REPOSITORY: catgpt
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          sudo docker login --username oauth --password $YANDEX_KEY cr.yandex
+          echo "$CI_JOB_TOKEN" | docker login -u json_key --password-stdin cr.yandex
           echo $(pwd)
           echo $(ls)
           cd catgpt
