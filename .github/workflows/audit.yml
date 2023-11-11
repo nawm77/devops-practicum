@@ -37,10 +37,8 @@ jobs:
           CR_REPOSITORY: catgpt
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
           echo $(pwd)
           echo $(ls)
           cd catgpt
-          yc container registry configure-docker
           docker build -t $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
           docker push $CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
