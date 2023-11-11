@@ -40,7 +40,6 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           cd ..
-          cd ..
           echo $(pwd)
           echo $(ls)
           cd ../catgpt
