@@ -41,9 +41,8 @@ jobs:
           CR_REPOSITORY: catgpt
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd ..
           echo $(pwd)
           echo $(ls)
-          cd ../catgpt
+          cd catgpt
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
