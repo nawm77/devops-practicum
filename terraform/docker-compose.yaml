@@ -2,9 +2,12 @@ version: '3.7'
 services:
   catgpt:
     container_name: catgpt
-    image: "cr.yandex/crpfselct7kq21c59cab/catgpt:1.0"
+    image: cr.yandex/crp5il9d0bl7g1umv4l8/catgpt:1
     restart: always
     network_mode: "host"
+    ports:
+      - "8080:8080"
+      - "9090:9090"
   unifiedagent:
     container_name: unified-agent
     image: "cr.yandex/yc/unified-agent"

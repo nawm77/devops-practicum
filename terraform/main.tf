@@ -15,14 +15,15 @@ provider "yandex" {
 
 resource "yandex_vpc_network" "foo" {}
 
+#resource "yandex_container_registry" "practicum-registry-nawm" {
+#  name = "practicum-registry-nawm"
+#}
+
+
 resource "yandex_vpc_subnet" "foo" {
   zone           = "ru-central1-a"
   network_id     = yandex_vpc_network.foo.id
   v4_cidr_blocks = ["10.5.0.0/24"]
-}
-
-resource "yandex_container_registry" "practicum-registry-nawm" {
-  name = "practicum-registry-nawm"
 }
 
 locals {
@@ -42,6 +43,7 @@ locals {
     "load-balancer.admin",
     "vpc.publicAdmin",
     "vpc.user",
+    "container-registry.images.puller",
   ])
 }
 resource "yandex_iam_service_account" "service-accounts" {
@@ -113,7 +115,7 @@ resource "yandex_compute_instance_group" "catgpt" {
         "${path.module}/docker-compose.yaml",
         {
           folder_id   = "${local.folder_id}",
-          registry_id = "${yandex_container_registry.practicum-registry-nawm.id}",
+          registry_id = "crp5il9d0bl7g1umv4l8",
         }
       )
       user-data = file("${path.module}/cloud-config.yml")
