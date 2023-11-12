@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "yandex" {
-  service_account_key_file = "./key.json"
+  service_account_key_file = "./authorized_key.json"
   folder_id                = local.folder_id
   zone                     = "ru-central1-a"
 }
@@ -21,12 +21,13 @@ resource "yandex_vpc_subnet" "foo" {
   v4_cidr_blocks = ["10.5.0.0/24"]
 }
 
-resource "yandex_container_registry" "registry1" {
-  name = "registry1"
+resource "yandex_container_registry" "practicum-registry-nawm" {
+  name = "practicum-registry-nawm"
 }
 
 locals {
   folder_id = "b1gkhch9p9nojcj6ikip"
+  cloud_id  = "b1g0vh6uspd0m39d5er6"
   service-accounts = toset([
     "catgpt-sa",
     "catgpt-ig-sa",
@@ -112,11 +113,11 @@ resource "yandex_compute_instance_group" "catgpt" {
         "${path.module}/docker-compose.yaml",
         {
           folder_id   = "${local.folder_id}",
-          registry_id = "${yandex_container_registry.registry1.id}",
+          registry_id = "${yandex_container_registry.practicum-registry-nawm.id}",
         }
       )
       user-data = file("${path.module}/cloud-config.yml")
-      ssh-keys  = "ubuntu:${file("~/.ssh/devops_training.pub")}"
+      ssh-keys  = "ubuntu:${file("~/.ssh/my_key.pub")}"
     }
   }
   load_balancer {

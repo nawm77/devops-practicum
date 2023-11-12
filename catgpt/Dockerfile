@@ -1,8 +1,10 @@
+ARG GOARCH=amd64
 FROM golang:1.21 as builder
-WORKDIR /build
+WORKDIR /go/src/catgpt
 COPY . .
-RUN go build -o app
+RUN go mod download
+RUN CGO_ENABLED=0 GOARCH=${GOARCH} go build -o /go/bin/catgpt
 
 FROM alpine
-COPY --from=builder /build/app .
-CMD ./app
+COPY --from=builder /go/bin/catgpt .
+CMD ./catgpt
